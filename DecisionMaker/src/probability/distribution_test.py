@@ -6,48 +6,14 @@ Created on 25 sty 2015
 
 import unittest
 from probability import distribution
-from probability.distribution import ExpectedValue, Variation, StandardDeviation
 
 class DistributionTest(unittest.TestCase):
 
 
     def setUp(self):
         self.model = distribution.Distribution({1: 0.004629629629629629, 2: 0.032407407407407406, 3: 0.08796296296296297, 4: 0.1712962962962963, 5: 0.2824074074074074, 6: 0.4212962962962963})
-
-
-    def tearDown(self):
-        pass
     
-    def testShouldCalculateExpectedValue(self):
-        # given
-        metric = ExpectedValue()
-        
-        # when
-        expectedValue = self.model.metric(metric)
-        
-        # then
-        self.assertEqual(expectedValue, 4.958333333333333, "Invalid expected value.")
-        
-    def testShouldCalculateVariation(self):
-        # given
-        metric = Variation()
-        
-        # when
-        variation = self.model.metric(metric)
-        
-        # then
-        self.assertEqual(variation, 25.89351851851852, "Invalid variation.") 
-        
-    def testShouldCalculateStandardDeviation(self):
-        # given
-        metric = StandardDeviation()
-        
-        # when
-        standardDeviation = self.model.metric(metric)
-        
-        # then
-        self.assertEqual(standardDeviation, 5.088567432835937, "Invalid standard deviation.")
-
+    
     def testShouldCalculateProbabilities(self):
         # given
         frequencies = {1: 1, 2: 7, 3: 19, 4: 37, 5: 61, 6: 91}
