@@ -14,9 +14,9 @@ if __name__ == '__main__':
     # Number of weeks in a year .... more or less
     rolls = 12 * 4 
     
-    # Matches with values formatted as "(ArtistA,ArtistB,value)".
+    # Matches with values formatted as "(FemaleArtist,MaleArtist,value)".
     # Ordered decreasingly on the match value.
-    path = "C:/Users/Nimbuzz/Downloads/job_1421736139483_0040_result.txt"
+    path = "C:/data.txt"
     
     # Initiating model  
     factory = TwoCriteriaModelFactory(alpha)
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     for line in f:
         line = line[1:-2]
         parts = line.split(',')
-        matches.setdefault(parts[0] + ' ' + parts[1], int(parts[2]))
+        matches.setdefault(parts[0] + ',' + parts[1], int(parts[2]))
         values.append(int(parts[2]))
     
     # Reading input, calculating
