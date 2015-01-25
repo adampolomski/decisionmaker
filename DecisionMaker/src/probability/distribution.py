@@ -3,12 +3,9 @@ Created on 25 sty 2015
 
 @author: Adam Polomski
 '''
-
-import math
-
 class Distribution(object):
     '''
-    classdocs
+    Discrete probability distribution.
     '''
 
     def __init__(self, probabilities):
@@ -19,6 +16,7 @@ class Distribution(object):
         
     def metric(self, strategy):
         '''
+        Calculates probability distribution metric specified by given strategy.
         '''
         return strategy.calculate(self.probabilities)
 
@@ -34,22 +32,3 @@ class Distribution(object):
             probabilities.setdefault(key, val / omega)
             
         return probabilities
-    
-    @staticmethod
-    def valueFrequency(values, rolls):
-        '''
-        '''
-        length = len(values)
-        frequencies = {}
-        lastValue = values[0]
-        
-        for i in range(0, length):  
-            curEvent = length - i  
-            eventCount = math.pow(curEvent, rolls) - math.pow(curEvent - 1, rolls)
-            oldFrequency = frequencies.pop(values[i], 0)
-            frequencies.setdefault(values[i], eventCount + oldFrequency)
-            
-            if (lastValue < values[i]):
-                raise ValueError()
-          
-        return frequencies

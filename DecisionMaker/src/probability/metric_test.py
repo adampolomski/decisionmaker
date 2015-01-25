@@ -3,7 +3,6 @@ Created on 25 sty 2015
 
 @author: Adam Polomski
 '''
-
 import unittest
 from probability.metric import ExpectedValue, Variation, StandardDeviation
 

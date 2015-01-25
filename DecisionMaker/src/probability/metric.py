@@ -3,10 +3,13 @@ Created on 25 sty 2015
 
 @author: Adam Polomski
 '''
-
 import math
 
 class Metric:
+    '''
+    Probability distribution metric.
+    '''
+    
     def calculate(self, probabilities):
         pass
 
