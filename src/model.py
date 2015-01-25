@@ -8,9 +8,6 @@ from probability.distribution import Distribution
 from probability.metric import StandardDeviation, ExpectedValue, Metric
 
 class Model(object):
-    '''
-    '''
-    
     def __init__(self, distribution, metric):
         self.distribution = distribution
         self.metric = metric
@@ -20,16 +17,11 @@ class Model(object):
         curVal = self.metric.agregate(curVal, 0)
         return potVal <= curVal
     
-class ModelFactory(object):
-    '''
-    classdocs
-    '''
-    
+class ModelFactory(object):    
     def createModel(self, values, rolls):
         pass    
        
 class TwoCriteriaModelFactory(ModelFactory):
-    
     def __init__(self, alpha):
         self.alpha = alpha
      
@@ -43,6 +35,8 @@ class TwoCriteriaModelFactory(ModelFactory):
     @staticmethod
     def valueFrequency(values, rolls):
         '''
+        Calculates number of events where each particular value is the largest 
+        among N consecutive rolls.
         '''
         
         length = len(values)
@@ -61,6 +55,9 @@ class TwoCriteriaModelFactory(ModelFactory):
         return frequencies
 
 class AgregateMetric(Metric):
+    '''
+    Agregates gain and risk into a single comparable metric.
+    '''
     def __init__(self, alpha, gain, risk):
         self.alpha = alpha
         self.gain = gain
@@ -69,9 +66,6 @@ class AgregateMetric(Metric):
     def calculate(self, probabilities):
         gain = self.gain.calculate(probabilities)
         risk = self.risk.calculate(probabilities)
-        
-        print(gain)
-        print(risk)
         return self.agregate(gain, risk)
     
     def agregate(self, gain, risk):

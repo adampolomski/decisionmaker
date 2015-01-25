@@ -8,13 +8,21 @@ from model import TwoCriteriaModelFactory
 
 if __name__ == '__main__':
     
-    #parameters
-    alpha = 2.5
-    factory = TwoCriteriaModelFactory(alpha)
-    rolls = 3
+    # Larger alpha, more prone to taking risks
+    alpha = 2.5  
     
-    #build dictionary
+    # Number of weeks in a year .... more or less
+    rolls = 12 * 4 
+    
+    # Matches with values formatted as "(ArtistA,ArtistB,value)".
+    # Ordered decreasingly on the match value.
     path = "C:/Users/Nimbuzz/Downloads/job_1421736139483_0040_result.txt"
+    
+    # Initiating model  
+    factory = TwoCriteriaModelFactory(alpha)
+    
+    
+    # Loading data, building dictionary
     f = open(path, 'r')
     
     matches = {}
@@ -25,8 +33,15 @@ if __name__ == '__main__':
         matches.setdefault(parts[0] + ' ' + parts[1], int(parts[2]))
         values.append(int(parts[2]))
     
+    # Reading input, calculating
     for line in sys.stdin:
         model = factory.createModel(values, rolls)
         curVal = matches.get(line[:-1])
-        print("yes" if model.goForIt(curVal) else "no")
+        
+        if model.goForIt(curVal):
+            print("yes")
+            break
+        else:
+            print("no")
+            
         rolls = rolls - 1
