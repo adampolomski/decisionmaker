@@ -15,9 +15,10 @@ class Model(object):
         self.distribution = distribution
         self.metric = metric
         
-    def decide(self, curVal):
+    def goForIt(self, curVal):
         potVal = self.distribution.metric(self.metric)
-        return potVal > curVal
+        curVal = self.metric.agregate(curVal, 0)
+        return potVal <= curVal
     
 class ModelFactory(object):
     '''
@@ -33,8 +34,8 @@ class TwoCriteriaModelFactory(ModelFactory):
         self.alpha = alpha
      
     def createModel(self, values, rolls):
-        frequencies = ModelFactory.valueFrequency(values, rolls)
-        distribution = Distribution.probabilitiesFromFrequencies(frequencies)
+        frequencies = TwoCriteriaModelFactory.valueFrequency(values, rolls)
+        distribution = Distribution(Distribution.probabilitiesFromFrequencies(frequencies))
         gain = ExpectedValue()
         risk = StandardDeviation()
         return Model(distribution, AgregateMetric(self.alpha, gain, risk)) 
@@ -43,6 +44,7 @@ class TwoCriteriaModelFactory(ModelFactory):
     def valueFrequency(values, rolls):
         '''
         '''
+        
         length = len(values)
         frequencies = {}
         lastValue = values[0]
@@ -67,4 +69,10 @@ class AgregateMetric(Metric):
     def calculate(self, probabilities):
         gain = self.gain.calculate(probabilities)
         risk = self.risk.calculate(probabilities)
+        
+        print(gain)
+        print(risk)
+        return self.agregate(gain, risk)
+    
+    def agregate(self, gain, risk):
         return self.alpha * gain - risk

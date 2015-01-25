@@ -29,6 +29,7 @@ class Distribution(object):
         probabilities = {}
         
         for key, val in frequencies.items():
-            probabilities.setdefault(key, val / omega)
+            p = 0 if omega == 0 else val / omega
+            probabilities.setdefault(key, p)
             
         return probabilities
