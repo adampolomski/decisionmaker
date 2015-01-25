@@ -1,13 +1,13 @@
 '''
 Created on 25 sty 2015
 
-@author: Nimbuzz
+@author: Adam Polomski
 '''
+
 import unittest
 from probability import model
 
-
-class Test(unittest.TestCase):
+class ProbabilisticModelTest(unittest.TestCase):
 
 
     def setUp(self):
@@ -27,7 +27,18 @@ class Test(unittest.TestCase):
         frequency = model.ProbabilisticModel.valueFrequency(values, rolls)
         
         #then
-        self.assertSequenceEqual(frequency, {1: 1, 2: 7, 3: 19, 4: 37, 5: 61, 6: 91}, "Invalid frequency dictionary", None)
+        self.assertSequenceEqual(frequency, {1: 1, 2: 7, 3: 19, 4: 37, 5: 61, 6: 91}, "Invalid frequency dictionary.", None)
+        
+    def testShouldCalculateValueFrequencyWithDuplicaes(self):
+        #given
+        values = [6, 5, 4, 3, 3, 1]
+        rolls = 3
+        
+        #when
+        frequency = model.ProbabilisticModel.valueFrequency(values, rolls)
+        
+        #then
+        self.assertSequenceEqual(frequency, {1: 1, 3: 26, 4: 37, 5: 61, 6: 91}, "Invalid frequency dictionary.", None)
         
     def testShouldFailOnUnorderedValues(self):
         #given
